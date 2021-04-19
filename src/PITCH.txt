@@ -1,0 +1,3 @@
+Chtěl bych vytvořit něco jako Geometry Dash, ale samozřejmně jednodušší. 
+Sice nevím jak moc to bude náročné, ale pokusím se to udělat co nejlépe.
+Prostě jen podlahu, kostičku a nějaké objekty do kterých nesmíte narazit, to je vlastně vše.
