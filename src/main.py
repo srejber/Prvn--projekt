@@ -1,45 +1,60 @@
 import pygame
 import sys
+import random
 
 pygame.init()
 
-okno_sirka = 900
-okno_vyska = 700
+okno_sirka = 720
+okno_vyska = 480
 
 pygame.display.set_caption("pokus o projekt")
 okno = pygame.display.set_mode((okno_sirka, okno_vyska))
 
 
-rychlost = 0.25
- 
-w1 = 50
-h1 = 50
- 
+playerImg = pygame.image.load("ufo.png")
+playerX = 150
+playerY = 180
+playerX_change = 0
+playerY_change = 0
 
-x1 = (okno_sirka / 2 - w1) / 2
-y1 = (okno_vyska - h1) / 2
+
+def player(x,y):
+    okno.blit(playerImg, (x, y))
+
+obraz = pygame.image.load("background.png")
+obraz = pygame.transform.scale(obraz, (okno_sirka,okno_vyska))
 
 zap = True
 
 while zap:
-     for udalost in pygame.event.get():
-        if udalost.type == pygame.QUIT:
+     for event in pygame.event.get():
+        if event.type == pygame.QUIT:
             zap = False
+        
+        
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_LEFT:
+                playerX_change = -0.2
+            if event.key == pygame.K_RIGHT:
+                playerX_change = 0.2
+            if event.key == pygame.K_UP:
+                playerY_change = -0.2
+            if event.key == pygame.K_DOWN:
+                playerY_change = 0.2
+        if event.type == pygame.KEYUP:
+            if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
+                playerX_change = 0
+            if event.key == pygame.K_UP or event.key == pygame.K_DOWN:
+                playerY_change = 0
             
-     stisknuto = pygame.key.get_pressed()
-    
-     if stisknuto[pygame.K_ESCAPE]:
-         zap = False
-     if stisknuto[pygame.K_LEFT]:
-         x1 -= rychlost
-     if stisknuto[pygame.K_RIGHT]:
-         x1 += rychlost
-     if stisknuto[pygame.K_UP]:
-         y1 -= rychlost
-     if stisknuto[pygame.K_DOWN]:
-         y1 += rychlost    
+            
+
+         
      okno.fill((255, 255, 255))
-     pygame.draw.rect(okno, (0, 0, 0), (x1, y1, w1, h1))
+     okno.blit(obraz, (0,0))
+     playerX += playerX_change
+     playerY += playerY_change
+     player(playerX,playerY)
      pygame.display.update()
 else:
     pygame.quit()
