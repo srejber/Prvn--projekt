@@ -7,13 +7,15 @@ pygame.init()
 okno_sirka = 720
 okno_vyska = 480
 
-pygame.display.set_caption("pokus o projekt")
+pygame.display.set_caption("První hra")
 okno = pygame.display.set_mode((okno_sirka, okno_vyska))
 
+icon = pygame.image.load("ufo icon.png")
+pygame.display.set_icon(icon)
 
 playerImg = pygame.image.load("ufo.png")
-playerX = 150
-playerY = 180
+playerX = 130
+playerY = 210
 playerX_change = 0
 playerY_change = 0
 
@@ -33,17 +35,11 @@ while zap:
         
         
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_LEFT:
-                playerX_change = -0.2
-            if event.key == pygame.K_RIGHT:
-                playerX_change = 0.2
             if event.key == pygame.K_UP:
                 playerY_change = -0.2
             if event.key == pygame.K_DOWN:
                 playerY_change = 0.2
         if event.type == pygame.KEYUP:
-            if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
-                playerX_change = 0
             if event.key == pygame.K_UP or event.key == pygame.K_DOWN:
                 playerY_change = 0
             
@@ -54,6 +50,12 @@ while zap:
      okno.blit(obraz, (0,0))
      playerX += playerX_change
      playerY += playerY_change
+     
+     if playerY <= 0:
+         playerY = 0
+     elif playerY >= 420:
+         playerY = 420
+     
      player(playerX,playerY)
      pygame.display.update()
 else:
